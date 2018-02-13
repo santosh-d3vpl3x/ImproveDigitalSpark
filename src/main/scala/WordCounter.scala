@@ -17,7 +17,7 @@ object WordCounter {
     import spark.implicits._
 
     //Calculate file name pivoted count of each word
-    val fileWiseCounts = spark.read.text("/Users/santosh/IdeaProjects/ImproveDigitalSpark/src/main/resources/file1","/Users/santosh/IdeaProjects/ImproveDigitalSpark/src/main/resources/file2")
+    val fileWiseCounts = spark.read.text(args : _*)
       .select(get_file_name(input_file_name).as("file_name"), split($"value","\\W").as("values"))
       .select($"file_name",explode($"values").as("value"))
       .filter($"value"=!="")
